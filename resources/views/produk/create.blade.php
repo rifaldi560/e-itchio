@@ -81,14 +81,27 @@
                         </div>
 
                         {{-- Tombol Submit --}}
-                        <button type="submit" class="btn btn-success">
-                            <i class="fa fa-save"></i> Simpan Produk
-                        </button>
+                                                @if(auth()->user()->role === 'admin')
+    <button href="{{ route('admin.home') }}" class="btn btn-success">
+        <i class="fa fa-save"></i> Simpan & Kembali ke Admin
+    </button>
+@else
+    <button href="{{ route('home') }}" class="btn btn-success">
+        <i class="fa fa-save"></i> simpan & Kembali ke Beranda
+    </button>
+@endif
 
-                        {{-- Tombol Kembali --}}
-                        <a href="{{ route('admin.home') }}" class="btn btn-secondary">
-                            <i class="fa fa-arrow-left"></i> Kembali
-                        </a>
+                      {{-- Tombol Kembali --}}
+@if(auth()->user()->role === 'admin')
+    <a href="{{ route('admin.home') }}" class="btn btn-secondary">
+        <i class="fa fa-arrow-left"></i> Kembali ke Admin
+    </a>
+@else
+    <a href="{{ route('home') }}" class="btn btn-secondary">
+        <i class="fa fa-arrow-left"></i> Kembali ke Beranda
+    </a>
+@endif
+
                     </form>
 
                 </div>

@@ -10,27 +10,19 @@ class ProdukPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can update the produk.
-     */
-    public function update(User $user, Produk $produk): bool
+    public function create(User $user)
     {
-        return $user->role === 'admin';
+        // Admin dan user biasa boleh create
+        return in_array($user->role, ['admin', 'user']);
     }
 
-    /**
-     * Determine whether the user can delete the produk.
-     */
-    public function delete(User $user, Produk $produk): bool
+    public function update(User $user, Produk $produk)
     {
-        return $user->role === 'admin';
+  return $user->role === 'admin' || $user->id === $produk->user_id;
     }
 
-    /**
-     * Allow only admin to view all products in admin dashboard.
-     */
-    public function viewAny(User $user): bool
+    public function delete(User $user, Produk $produk)
     {
-        return $user->role === 'admin';
+        return $user->role === 'admin' || $user->id === $produk->user_id;
     }
 }

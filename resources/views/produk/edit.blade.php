@@ -68,7 +68,7 @@
                             @if($produk->file_game)
                                 <small class="form-text text-muted">
                                     File saat ini:
-                                    @if(str_contains($produk->file_game, 'games_extracted'))
+                                    @if(str_contains($produk->file_game, 'games/'))
                                         <a href="{{ route('produk.play', $produk->id) }}" target="_blank" style="color: #02CCFF;">Lihat Detail / Mainkan</a>
                                     @else
                                         <a href="{{ route('storage.downloadGame', $produk->id) }}" style="color: #02CCFF;">Download File Game</a>
@@ -96,13 +96,20 @@
                         </div>
 
                         {{-- Tombol Aksi --}}
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-success">
-                                <i class="fa fa-save"></i> Simpan Perubahan
-                            </button>
-                            <a href="{{ route('admin.home') }}" class="btn btn-secondary">
-                                <i class="fa fa-arrow-left"></i> Kembali
-                            </a>
+ <div class="d-flex justify-content-between mt-4">
+    {{-- Tombol Simpan --}}
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-save"></i> Simpan
+    </button>
+                          @if(auth()->user()->role === 'admin')
+    <a href="{{ route('admin.home') }}" class="btn btn-secondary">
+        <i class="fa fa-arrow-left"></i> Kembali ke Admin
+    </a>
+@else
+    <a href="{{ route('home') }}" class="btn btn-secondary">
+        <i class="fa fa-arrow-left"></i> Kembali ke Beranda
+    </a>
+@endif
                         </div>
                     </form>
 
